@@ -10,7 +10,6 @@ This project demonstrates a complete data cleaning and exploratory data analysis
 
 * Python
 * Pandas
-* NumPy
 * Matplotlib
 * Seaborn
 * Jupyter Notebook
@@ -106,3 +105,4 @@ Potential extensions of this project include:
 **Lazar Petric**
 
 Data Cleaning & Exploratory Data Analysis Project (2026)
+

@@ -38,6 +38,37 @@ employee_data_cleaning_and_eda/
 
 ---
 
+## How to Run the Project
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/PetricL/employee_data_cleaning_and_eda.git
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the Data Cleaning Script
+
+```bash
+python scripts/employee_data_cleaning_script.py
+```
+
+### 4. Open the Jupyter Notebooks
+
+Use the notebooks below to review the complete data cleaning process and exploratory data analysis:
+
+```text
+notebooks/employee_data_cleaning_notebook.ipynb
+notebooks/employee_dataset_eda.ipynb
+```
+
+---
+
 ## Data Cleaning Process
 
 The raw dataset contained multiple data quality issues that required preprocessing.
@@ -104,6 +135,9 @@ Potential extensions of this project include:
 ## Author
 
 **Lazar Petric**
+
+Data Cleaning & Exploratory Data Analysis Project (2026)
+
 
 Data Cleaning & Exploratory Data Analysis Project (2026)
 

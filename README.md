@@ -26,10 +26,11 @@ employee_data_cleaning_and_eda/
 │   └── clean_employee_dataset.csv
 │
 ├── notebooks/
-│   └── employee_eda.ipynb
+│   ├── employee_data_cleaning_notebook.ipynb
+│   └── employee_dataset_eda.ipynb
 │
 ├── scripts/
-│   └── cleaning_script.py
+│   └── employee_data_cleaning_script.py
 │
 ├── README.md
 └── requirements.txt

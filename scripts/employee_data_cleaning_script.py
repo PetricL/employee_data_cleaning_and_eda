@@ -1,13 +1,18 @@
+from pathlib import Path
+
 import pandas as pd
 
+# Paths (works no matter which folder the script is run from)
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
+
 # Load dataset
-df = pd.read_csv("Messy_Employee_dataset.csv")
+df = pd.read_csv(DATA_DIR / "messy_employee_dataset.csv")
 
 # Split Department_Region into two columns
 df[["Department", "Region"]] = df["Department_Region"].str.split("-", expand=True)
 
 # Clean Age column (fill missing with median)
-df["Age"] = df["Age"].fillna(df["Age"].median())
+df["Age"] = df["Age"].fillna(df["Age"].median()).astype(int)
 
 # Clean Salary column (fill missing with median)
 df["Salary"] = df["Salary"].fillna(df["Salary"].median())
@@ -18,8 +23,11 @@ df["Join_Date"] = pd.to_datetime(df["Join_Date"], errors="coerce")
 # Fix negative phone numbers
 df["Phone"] = df["Phone"].abs()
 
-# Remove duplicate employees based on Email
-df = df.drop_duplicates(subset="Email", keep="first")
+# Remove duplicate employees based on Employee_ID
+# (Email is not unique: it is built from first and last name, so different employees share it)
+before = len(df)
+df = df.drop_duplicates(subset="Employee_ID", keep="first")
+print(f"Duplicates removed: {before - len(df)}")
 
 # Reset index after cleaning
 df = df.reset_index(drop=True)
@@ -28,11 +36,6 @@ df = df.reset_index(drop=True)
 df = df.drop(columns=["Department_Region"])
 
 # Save cleaned dataset
-df.to_csv("Clean_Employee_Dataset.csv", index=False)
+df.to_csv(DATA_DIR / "clean_employee_dataset.csv", index=False)
 
-print("Cleaning complete. File saved as Clean_Employee_Dataset.csv")
-
-
-
-
-
+print(f"Cleaning complete. {len(df)} employees saved to data/clean_employee_dataset.csv")

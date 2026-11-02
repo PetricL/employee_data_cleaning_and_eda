@@ -44,6 +44,7 @@ employee_data_cleaning_and_eda/
 
 ```bash
 git clone https://github.com/PetricL/employee_data_cleaning_and_eda.git
+cd employee_data_cleaning_and_eda
 ```
 
 ### 2. Install Dependencies
@@ -57,6 +58,8 @@ pip install -r requirements.txt
 ```bash
 python scripts/employee_data_cleaning_script.py
 ```
+
+The script reads `data/messy_employee_dataset.csv` and saves the result to `data/clean_employee_dataset.csv`.
 
 ### 4. Open the Jupyter Notebooks
 
@@ -77,11 +80,11 @@ The raw dataset contained multiple data quality issues that required preprocessi
 
 * Loaded and inspected the raw dataset
 * Split the combined `Department_Region` column into separate columns
-* Filled missing values in `Age` using the median
-* Filled missing values in `Salary` using the median
+* Filled missing values in `Age` using the median (211 values, 21% of the data)
+* Filled missing values in `Salary` using the median (24 values)
 * Converted `Join_Date` to datetime format
 * Corrected negative phone numbers using absolute values
-* Removed duplicate employee records based on email addresses
+* Checked for duplicate employees using `Employee_ID` (no duplicates found). `Email` was not used, because in this dataset it is built only from first and last name and is shared by many different employees
 * Reset the dataset index
 * Removed unnecessary columns
 * Exported the cleaned dataset
@@ -111,11 +114,18 @@ After cleaning, exploratory analysis was performed to better understand the data
 
 ## Key Findings
 
-* All missing values were successfully handled
-* Duplicate employee records were removed
+* The cleaned dataset contains all 1,020 employees, with no missing values and no duplicates
+* Only about a third of employees (35%) are Active; the rest are Pending or Inactive
+* Employees are spread fairly evenly across departments, regions and performance scores
+* Remote work is almost evenly split (513 remote, 507 on-site)
+* Salaries range from about 50,000 to 120,000, with mean and median both around 85,000
 * No significant outliers were detected using the IQR method
-* Feature correlations were generally weak, indicating low multicollinearity
-* The dataset is clean and suitable for further analysis or predictive modeling
+* Correlations between numerical features are very weak, indicating low multicollinearity
+* Age 30 is overrepresented because 211 missing ages were filled with the median (30)
+
+### Lesson Learned
+
+An earlier version removed duplicates based on `Email`. Because emails are built from first and last name, only 64 unique emails exist for 1,020 employees, and 956 real employees were removed by mistake. The rows sharing an email are clearly different people: they have different IDs, ages, departments, salaries and join dates. The cleaning now uses `Employee_ID`, the real unique identifier. In a real company, emails should be unique, so this would be reported as a data quality issue in the source system.
 
 ---
 
